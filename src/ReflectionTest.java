@@ -6,14 +6,6 @@ import java.lang.reflect.InvocationTargetException;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ReflectionTest {
-// comments:
-    // use given when then in display name if using display name, add more info
-    // dont need to list all the exceptions in test, just throw exception.
-    // init (data, mocks, etc)
-    // execute the method
-    // assert values are correct
-    // put empty lines between the 3 steps
-    // learn assertj - better error message, convenient methods to check list and array. containsInOrder
     @Test
     @DisplayName("parse one string value to person class")
     public void parseOneStringValueToPersonClass() throws InstantiationException, IllegalAccessException, NoSuchFieldException, InvocationTargetException, NoSuchMethodException {
