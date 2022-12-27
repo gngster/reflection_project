@@ -1,3 +1,5 @@
+package main.zuhlke;
+
 public class Person {
     private String name;
     private Integer age;

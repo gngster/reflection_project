@@ -1,3 +1,5 @@
+package main.zuhlke;
+
 public class Price {
     private String currency;
     private Double value;
