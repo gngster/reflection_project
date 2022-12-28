@@ -56,3 +56,8 @@ General Comments:
    1. new framework called micronaut (do it at compile time instead of runtime like spring)
    1. open api makes use of reflection to analyse the code in controller annotated class and generates the yaml file based on analysed methods.
     
+
+Testing Best Practices -
+from https://phauer.com/2019/modern-best-practices-testing-java/.
+
+In this case `parseOneStringValueToPersonClass`, we may only be interested in a certain JSON field of the payload. So we should only check the relevant field to clearly state and document the scope of the logic under test. Again, there is no need to assert all fields again, because there are not relevant here.

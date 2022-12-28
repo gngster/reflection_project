@@ -20,8 +20,6 @@ class ReflectionTest extends Reflection {
             Person person = Reflection.parse("name:steffie", Person.class);
 
             assertThat(person.getName()).isEqualTo("steffie");
-            assertThat(person.getAge()).isNull();
-            assertThat(person.getGender()).isNull();
         }
 
         @Test
@@ -30,8 +28,6 @@ class ReflectionTest extends Reflection {
             Person person = Reflection.parse("age:28", Person.class);
 
             assertThat(person.getAge()).isEqualTo(28);
-            assertThat(person.getName()).isNull();
-            assertThat(person.getGender()).isNull();
         }
 
         @Test
@@ -53,10 +49,9 @@ class ReflectionTest extends Reflection {
         @Test
         @DisplayName("when parsing blank spaces to person class, value will be trimmed to empty string")
         public void parseBlankSpacesToPersonClass() throws Exception {
-            Person person = Reflection.parse("name:   ,age:28,gender:  ", Person.class);
+            Person person = Reflection.parse("name:   ,gender:  ", Person.class);
 
             assertThat(person.getName()).isEqualTo("");
-            assertThat(person.getAge()).isEqualTo(28);
             assertThat(person.getGender()).isEqualTo("");
         }
 
@@ -66,8 +61,6 @@ class ReflectionTest extends Reflection {
             Person person = Reflection.parse("name:null", Person.class);
 
             assertThat(person.getName()).isNull();
-            assertThat(person.getAge()).isNull();
-            assertThat(person.getGender()).isNull();
         }
 
         @Test
@@ -106,7 +99,6 @@ class ReflectionTest extends Reflection {
             Price price = Reflection.parse("currency:Euros", Price.class);
 
             assertThat(price.getCurrency()).isEqualTo("Euros");
-            assertThat(price.getValue()).isNull();
         }
 
         @Test
@@ -115,7 +107,6 @@ class ReflectionTest extends Reflection {
             Price price = Reflection.parse("value:100.39", Price.class);
 
             assertThat(price.getValue()).isEqualTo(100.39);
-            assertThat(price.getCurrency()).isNull();
         }
 
         @Test
