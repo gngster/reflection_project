@@ -136,7 +136,9 @@ class ReflectionTest extends Reflection {
         public void testGetTypedValueString() {
             Object string = Reflection.getTypedValue("STRING", "Steffie");
 
-            assertThat(string).isEqualTo("Steffie");
+            assertThat(string)
+                    .isInstanceOf(String.class)
+                    .isEqualTo("Steffie");
         }
 
         @Test
@@ -144,7 +146,9 @@ class ReflectionTest extends Reflection {
         public void testGetTypedValueInteger() {
             Object integer = Reflection.getTypedValue("INTEGER", "28");
 
-            assertThat(integer).isEqualTo(28);
+            assertThat(integer)
+                    .isInstanceOf(Integer.class)
+                    .isEqualTo(28);
         }
 
         @Test
@@ -152,7 +156,9 @@ class ReflectionTest extends Reflection {
         public void testGetTypedValueDouble() {
             Object integer = Reflection.getTypedValue("DOUBLE", "28.00");
 
-            assertThat(integer).isEqualTo(28.00);
+            assertThat(integer)
+                    .isInstanceOf(Double.class)
+                    .isEqualTo(28.00);
         }
 
         @Test
