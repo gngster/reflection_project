@@ -41,12 +41,6 @@ class ReflectionTest extends Reflection {
         }
 
         @Test
-        @DisplayName("when parse invalid integer, error thrown")
-        public void parseInvalidFieldToPersonClass() {
-            assertThatThrownBy(() -> Reflection.parse("name:Steffie,age:invalidAge,gender:female", Person.class)).isInstanceOf(NumberFormatException.class);
-        }
-
-        @Test
         @DisplayName("when parsing blank spaces to person class, value will be trimmed to empty string")
         public void parseBlankSpacesToPersonClass() throws Exception {
             Person person = Reflection.parse("name:   ,gender:  ", Person.class);
@@ -61,12 +55,6 @@ class ReflectionTest extends Reflection {
             Person person = Reflection.parse("name:null", Person.class);
 
             assertThat(person.getName()).isNull();
-        }
-
-        @Test
-        @DisplayName("when parse invalid field names, error is thrown")
-        public void parseInvalidFieldNamesToPersonClass() {
-            assertThatThrownBy(() -> Reflection.parse("currency:Euros,price:100.39", Person.class)).isInstanceOf(NoSuchFieldException.class);
         }
 
         @Test
@@ -88,6 +76,23 @@ class ReflectionTest extends Reflection {
             assertThat(person.getAge()).isNull();
             assertThat(person.getGender()).isEqualTo("");
         }
+    }
+
+    @Nested
+    @DisplayName("Errors")
+    class TestErrors {
+        @Test
+        @DisplayName("when parse invalid field names, error is thrown")
+        public void parseInvalidFieldNamesToPersonClass() {
+            assertThatThrownBy(() -> Reflection.parse("currency:Euros,price:100.39", Person.class)).isInstanceOf(NoSuchFieldException.class);
+        }
+
+        @Test
+        @DisplayName("when parse invalid integer, error thrown")
+        public void parseInvalidFieldToPersonClass() {
+            assertThatThrownBy(() -> Reflection.parse("name:Steffie,age:invalidAge,gender:female", Person.class)).isInstanceOf(NumberFormatException.class);
+        }
+
     }
 
     @Nested
