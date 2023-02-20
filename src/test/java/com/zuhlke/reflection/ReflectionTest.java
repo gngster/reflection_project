@@ -1,15 +1,12 @@
-package test.zuhlke;
+package com.zuhlke.reflection;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import main.zuhlke.Person;
-import main.zuhlke.Price;
-import main.zuhlke.Reflection;
 
 import static org.assertj.core.api.Assertions.*;
 
-class ReflectionTest extends Reflection {
+class ReflectionTest {
 
     @Nested
     @DisplayName("Creating Person object")
@@ -20,6 +17,7 @@ class ReflectionTest extends Reflection {
             Person person = Reflection.parse("name:steffie", Person.class);
 
             assertThat(person.getName()).isEqualTo("steffie");
+
         }
 
         @Test
@@ -33,20 +31,19 @@ class ReflectionTest extends Reflection {
         @Test
         @DisplayName("when parse all valid values, person is created")
         public void parseAllValidValuesToPersonClass() throws Exception {
-            Person person = Reflection.parse("name:Steffie,age:28,gender:female", Person.class);
+            Person person = Reflection.parse("name:Steffie,age:28,gender:F", Person.class);
 
             assertThat(person.getName()).isEqualTo("Steffie");
             assertThat(person.getAge()).isEqualTo(28);
-            assertThat(person.getGender()).isEqualTo("female");
+            assertThat(person.getGender().getGenderDescr()).isEqualTo("female");
         }
 
         @Test
         @DisplayName("when parsing blank spaces to person class, value will be trimmed to empty string")
         public void parseBlankSpacesToPersonClass() throws Exception {
-            Person person = Reflection.parse("name:   ,gender:  ", Person.class);
+            Person person = Reflection.parse("name:   ", Person.class);
 
             assertThat(person.getName()).isEqualTo("");
-            assertThat(person.getGender()).isEqualTo("");
         }
 
         @Test
@@ -60,21 +57,21 @@ class ReflectionTest extends Reflection {
         @Test
         @DisplayName("when parse json notation, person is created")
         public void parseJsonNotationToPersonClassWithFilledValues() throws Exception {
-            Person person = Reflection.parse("{\"name\":\"Steffie\", \"age\":28, \"gender\":\"female\"}", Person.class);
+            Person person = Reflection.parse("{\"name\":\"Steffie\", \"age\":28, \"gender\":\"F\"}", Person.class);
 
             assertThat(person.getName()).isEqualTo("Steffie");
             assertThat(person.getAge()).isEqualTo(28);
-            assertThat(person.getGender()).isEqualTo("female");
+            assertThat(person.getGender().getGenderDescr()).isEqualTo("female");
         }
 
         @Test
         @DisplayName("when parse json notation with null and empty values, person is created")
         public void parseJsonNotationToPersonClassWithNullAndEmpty() throws Exception {
-            Person person = Reflection.parse("{\"name\":\"Steffie\", \"age\":null, \"gender\":\"\"}", Person.class);
+            Person person = Reflection.parse("{\"name\":\"Steffie\", \"age\":null, \"gender\":\"M\"}", Person.class);
 
             assertThat(person.getName()).isEqualTo("Steffie");
             assertThat(person.getAge()).isNull();
-            assertThat(person.getGender()).isEqualTo("");
+            assertThat(person.getGender().getGenderDescr()).isEqualTo("male");
         }
     }
 
@@ -90,7 +87,7 @@ class ReflectionTest extends Reflection {
         @Test
         @DisplayName("when parse invalid integer, error thrown")
         public void parseInvalidFieldToPersonClass() {
-            assertThatThrownBy(() -> Reflection.parse("name:Steffie,age:invalidAge,gender:female", Person.class)).isInstanceOf(NumberFormatException.class);
+            assertThatThrownBy(() -> Reflection.parse("name:Steffie,age:invalidAge,gender:F", Person.class)).isInstanceOf(NumberFormatException.class);
         }
 
     }
@@ -123,6 +120,14 @@ class ReflectionTest extends Reflection {
             assertThat(price.getValue()).isEqualTo(100.39);
         }
     }
+
+//    @Nested
+//    @DisplayName("parseText method")
+//    class TestParseText {
+//        @Test
+//        @DisplayName("given valid string with colons ")
+//        public void testValidString()
+//    }
 
     @Nested
     @DisplayName("getTypedValue method")

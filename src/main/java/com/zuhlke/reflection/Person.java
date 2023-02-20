@@ -1,9 +1,11 @@
-package main.zuhlke;
+package com.zuhlke.reflection;
+
+import com.zuhlke.reflection.factory.Gender;
 
 public class Person {
     private String name;
     private Integer age;
-    private String gender;
+    private Gender gender;
 
     public Person() {
     }
@@ -24,11 +26,11 @@ public class Person {
         this.age = age;
     }
 
-    public String getGender() {
+    public Gender getGender() {
         return gender;
     }
 
-    public void setGender(String gender) {
+    public void setGender(Gender gender) {
         this.gender = gender;
     }
 }

@@ -13,7 +13,7 @@ In `Reflection` class:
 
 
 2. In the if-else block, I should have used `else-if` instead of just `if` also. 
-take not of open closed principle -- open for extension, closed for modification
+take note of open closed principle -- open for extension, closed for modification
 - don't touch existing code, because you will break code,
 - factory implementation , no business logic in factory so, it's not so tragic to have a switch case to choose which implementation to use, shouldn't have biz logic in factory, just switch statements
 - when you see a bigger if else block, start to think about using a design pattern (factory/strategy, etc)
@@ -32,7 +32,7 @@ In `ReflectionTest` class:
 1. don't need to list all the exceptions in test, just throw general Exception.
 1. 3 steps in a test - 
    1. initialise (data, mocks, etc) (in this case, it's simple enough, don't need the init step)
-   1. execute the method
+   1. execute the method (there should only be 1 execution actually)
    1. assert values are correct
 1. good practice - put empty lines between the 3 steps to make it clearer for others to read, like in the `Reflection.parse` method.
 1. learn to use assertj - better error message, convenient methods to check list and array such as containsInOrder
@@ -61,3 +61,33 @@ Testing Best Practices -
 from https://phauer.com/2019/modern-best-practices-testing-java/.
 
 In this case `parseOneStringValueToPersonClass`, we may only be interested in a certain JSON field of the payload. So we should only check the relevant field to clearly state and document the scope of the logic under test. Again, there is no need to assert all fields again, because there are not relevant here.
+
+##### Test Behaviour, not implementation (use given-when-then to guide)
+don't write tests that are dependent on implementation details for e.g. if you are using verify() to verify that an inner method is called only once/ not called at all, you are 
+coupling your implementation details too tightly to your test. 
+there are exceptions to writing verify() - sometimes it is needed. not always 1 or 0.
+if service method returns smth, you don't have to use verify. you can just assert the output.
+valid reason to use verify - publishing of events.
+
+tests should be 
+1. fast (< 100ms)
+2. readable
+3. actually testing something (is the test just testing your mocks???!)
+
+if you have too many lines of initialisation in tests (too complicated), something may be wrong with your design...
+certain code smells should be your trigger point to think is your solution the best. 
+a new requirement should be the trigger to write a new test, not a new method. 
+in this case, i should definitely test the method `parseText` as many things could go wrong with a string there. this "requirement" does not have to be a high 
+level user requirement - it could be a lower level. don't test the implementation inside. just test input and output. 
+
+await can be used in integration tests...
+
+integration tests (if dependent on actual databases) can be run separately in the CI/CD setup so you can get a build up and running and not let your build be dependent on success of external systems.
+
+#### Controller coding best prctices
+controller should only call one service that calls other services instead of controller having all the other services in it -- 
+testing will be very cluttered in controller - you just want to test that the endpoint is accessible, but now you have to end up 
+mocking all the services. so you should just call one service in controller and in that service, call all the other services.
+
+Draft #2 - Refactored into Factory pattern.
+-- 

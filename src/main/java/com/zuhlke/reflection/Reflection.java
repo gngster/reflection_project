@@ -1,4 +1,8 @@
-package main.zuhlke;
+package com.zuhlke.reflection;
+
+import com.zuhlke.reflection.factory.TypeFactory;
+import com.zuhlke.reflection.factory.Type;
+import com.zuhlke.reflection.factory.ValueTypeName;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -24,7 +28,7 @@ public class Reflection {
         return clazz.getConstructor().newInstance();
     }
 
-    private static HashMap<String, String> parseText(String text) {
+    static HashMap<String, String> parseText(String text) {
         HashMap<String, String> keyValues = new HashMap<>();
         String[] parts = text.split("[{},]");
 
@@ -68,12 +72,10 @@ public class Reflection {
         return field;
     }
 
-     protected static Object getTypedValue(String fieldType, String validValue) {
-        return switch (ValueTypeName.valueOf(fieldType.toUpperCase())) {
-            case STRING -> validValue;
-            case INTEGER -> Integer.parseInt(validValue);
-            case DOUBLE -> Double.parseDouble(validValue);
-        };
+    static Object getTypedValue(String fieldType, String validValue) {
+        TypeFactory typeFactory = new TypeFactory();
+        Type type = typeFactory.getType(ValueTypeName.valueOf(fieldType.toUpperCase()));
+        return type.getTypedValue(validValue);
     }
 }
 

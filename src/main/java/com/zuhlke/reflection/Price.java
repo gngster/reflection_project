@@ -1,4 +1,4 @@
-package main.zuhlke;
+package com.zuhlke.reflection;
 
 public class Price {
     private String currency;
