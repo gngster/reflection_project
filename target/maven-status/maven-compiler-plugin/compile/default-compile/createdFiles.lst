@@ -1,0 +1,12 @@
+com\zuhlke\reflection\factory\DoubleType.class
+com\zuhlke\reflection\factory\TypeFactory.class
+com\zuhlke\reflection\factory\Type.class
+com\zuhlke\reflection\Person.class
+com\zuhlke\reflection\factory\TypeFactory$1.class
+com\zuhlke\reflection\Reflection.class
+com\zuhlke\reflection\factory\Gender.class
+com\zuhlke\reflection\factory\GenderType.class
+com\zuhlke\reflection\Price.class
+com\zuhlke\reflection\factory\IntegerType.class
+com\zuhlke\reflection\factory\StringType.class
+com\zuhlke\reflection\factory\ValueTypeName.class
